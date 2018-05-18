@@ -100,8 +100,8 @@ def pay_bill(source,dest,loop,cliente,data):
 		to_script=output_script_dest,       # The issued coins are sent back to the same address
 		change_script=output_script,        # The bitcoin change is sent back to the same address
 		amount=asset_quantity)  # Issue euro_chain units of the asset
-	transaction = builder.transfer_assets(assetid,issuance_parameters,output_script_dest,fees=1000)
-#	send(rpc,transaction)
+	transaction = builder.transfer_assets(assetid,issuance_parameters,output_script, fees=1000)
+	send(rpc,transaction)
 
 def listunspent(rpc):
         r = rpc._call('listunspent')
