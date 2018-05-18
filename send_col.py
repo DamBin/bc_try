@@ -50,15 +50,14 @@ def main(source,dest,loop):
 				(yield from engine.get_output(output['outpoint'].hash, output['outpoint'].n))
 				))
 			am += output['amount']
-			print(engine.get_output(output['outpoint'].hash, output['outpoint'].n))
 	builder = openassets.transactions.TransactionBuilder(600)
 	issuance_parameters = openassets.transactions.TransferParameters(
 		unspent_outputs=unspent_outputs,    # Unspent outputs the coins are issued from
 		to_script=output_script_dest,            # The issued coins are sent back to the same address
 		change_script=output_script,        # The bitcoin change is sent back to the same address
 		amount=1)                          # Issue 1,500 units of the asset
-	transaction = builder.issue(issuance_parameters, metadata=b'', fees=1000)
-#	send(rpc,transaction)
+	transaction = builder.issue(issuance_parameters, metadata=b'Gianpiero_07/2018', fees=1000)
+	send(rpc,transaction)
 
 def send(rpc,transaction):
 	signed = rpc.signrawtransaction(transaction)
@@ -66,7 +65,7 @@ def send(rpc,transaction):
 	print(txid)
 
 loop = asyncio.get_event_loop()
-dest = "mz5YgXbD3UHV8kRN29ftwkyyQMw5JSTVJE"
-source = "mtSHvdzTQGH5Yazkxnn1RBDChB5aCJkEUb"
+source = "mz5YgXbD3UHV8kRN29ftwkyyQMw5JSTVJE"
+dest = "mtSHvdzTQGH5Yazkxnn1RBDChB5aCJkEUb"
 loop.run_until_complete(main(source,dest,loop))
 
